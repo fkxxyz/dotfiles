@@ -1,0 +1,11 @@
+[Trigger]
+Type = File
+Operation = Install
+Operation = Upgrade
+Target = usr/bin/bcompare
+
+[Action]
+Description = Patch bcompare...
+When = PostTransaction
+Exec = /usr/bin/sh -c "grep 'rm -f ~/.config/bcompare/registry.dat' /usr/bin/bcompare > /dev/null || sed -i '1arm -f ~/.config/bcompare/registry.dat' /usr/bin/bcompare"
+
