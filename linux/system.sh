@@ -18,5 +18,5 @@ find /lib/modules/`uname -r`/kernel -name bluetooth | \
 	>> /etc/modprobe.d/no-bluetooth.conf
 
 # 解除 rf 锁
-rfkill unlick all
+rfkill unblock all
 
