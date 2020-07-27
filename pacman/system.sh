@@ -42,8 +42,8 @@ fi
 
 
 
-# 默认四线程编译
-sed -Ei 's/^[#[:space:]]*(MAKEFLAGS=).*$/\1"-j4"/g' /etc/makepkg.conf
+# 默认所有线程编译
+sed -Ei 's/^[#[:space:]]*(MAKEFLAGS=).*$/\1"-j'"$(cat /proc/cpuinfo | grep processor | sort -u | wc -l)"'"/g' /etc/makepkg.conf
 
 # 默认压缩格式为 zst
 sed -Ei 's/^[#[:space:]]*(PKGEXT=).*$/\1'"'.pkg.tar.zst'"'/g' /etc/makepkg.conf
