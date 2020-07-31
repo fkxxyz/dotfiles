@@ -1,0 +1,3 @@
+#!/bin/bash
+exec ~/.local/bin/folders_files_switcher -c ~/.config/wallpaper.conf $*
+

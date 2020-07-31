@@ -43,6 +43,13 @@ if [ -d ~/.config/autostart ] ; then
  unset f
 fi
 
+if [ -d ~/.config/autostart ] ; then
+ for f in ~/.config/autostart/*.sh ; do
+  [ -x "$f" ] && "$f" &
+ done
+ unset f
+fi
+
 wait $main_pid
 
 
