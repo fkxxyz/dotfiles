@@ -1,0 +1,74 @@
+
+
+
+# archlinux 源
+export DOT_mirror_archlinux=https://mirror.bjtu.edu.cn/disk3/archlinux/$repo/os/$arch
+
+# archlinuxcn 源
+export DOT_mirror_archlinuxcn=https://mirror.bjtu.edu.cn/archlinuxcn/$arch
+
+# 是否开启 nickcao 仓库
+export DOT_enable_nickcao=
+
+
+# ubuntu 源
+export DOT_mirror_ubuntu=https://mirror.bjtu.edu.cn/ubuntu
+
+# debian 源
+export DOT_mirror_debian=https://mirror.bjtu.edu.cn/debian
+
+# debian 版本代号
+export DOT_debian_release_codename=sid
+
+
+# 系统时间是否为 UTC
+export DOT_hw_is_utc=yes
+
+# 时区
+export DOT_zoneinfo=Asia/Shanghai
+
+# 键盘布局
+export DOT_keymap=us
+
+
+
+# 是否启用 ntp
+export DOT_enable_ntp=yes
+
+
+
+# 是否允许root用户登录（否）
+export DOT_PermitRootLogin=
+
+# 是否允许密码登录（是）
+export DOT_PasswordAuthentication=yes
+
+# 是否允许空密码（否）
+export DOT_PermitEmptyPasswords=
+
+# 是否允许公钥登录（是）
+export DOT_PubkeyAuthentication=yes
+
+
+# 禁用响铃
+export DOT_disable_beep=yes
+
+# 禁用n显卡开源驱动
+export DOT_disable_nouveau=yes
+
+# 禁用蓝牙
+export DOT_disable_bluetooth=yes
+
+# 解除 rfkill
+export DOT_rfkill_unblock_all=yes
+
+
+# X的输入法环境
+export DOT_X_im_module=fcitx5
+
+# X的语言环境
+export DOT_X_LANG=zh_CN.UTF-8
+
+
+
+
