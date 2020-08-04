@@ -89,9 +89,9 @@ done
 
 # 设置自动启动
 mkdir -p ~/.config/autostart
-cat > ~/.config/autostart/conky.desktop << EOF
-[Desktop Entry]
-Exec="conky"
-Type=Application
+cat > ~/.config/autostart/conky.sh << EOF
+exec conky
 EOF
+
+chmod 755 ~/.config/autostart/conky.sh 
 

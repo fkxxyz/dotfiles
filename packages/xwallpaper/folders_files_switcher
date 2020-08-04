@@ -1,0 +1,162 @@
+#!/usr/bin/env python
+#-*- encoding:utf-8 -*-
+
+import os
+import argparse
+import configparser
+import subprocess
+import sys
+
+DESCRIPTION = 'Select a file in a custom series of folders and ' + \
+    'use a specific custom script to process this file.'
+    
+default_conf_obj = os.path.expanduser('~') + os.sep + '.config' + \
+    os.sep + 'folders_files_switcher.conf'
+    
+default_trav_command = 'find {d} -type f'
+    
+Commands = {
+    'get',
+    'set',
+    'list',
+    'prev',
+    'next',
+    'exec',
+}
+
+no_execute = False
+config = None
+
+def read_config(conf):
+    if not os.path.isfile(conf):
+        sys.stderr.write('The configuration file "%s" not found.\n' \
+            % conf)
+        return 2
+    
+    class CaseSensitiveConfigParser(configparser.ConfigParser):
+        def optionxform(self, optionstr):
+            return optionstr
+            
+    conf_obj = CaseSensitiveConfigParser(allow_no_value = True)
+    conf_obj.read(conf)
+    
+    if not {'directories', 'scripts'}.issubset(set(conf_obj.sections())):
+        sys.stderr.write('The configuration file must contain ' + \
+            '"directories" and "scripts" sections.\n')
+        return 3
+    
+    global config
+    config = dict()
+    config['conf_file'] = conf
+    config['conf_obj'] = conf_obj
+    config['directories'] = conf_obj.options('directories')
+    config['scripts'] = conf_obj.options('scripts')
+    
+    config['opinions'] = dict()
+    if conf_obj.has_option('opinions', 'trav_command'):
+        config['opinions']['trav_command'] = \
+            conf_obj.get('opinions', 'trav_command')
+    else:
+        config['opinions']['trav_command'] = default_trav_command
+    cmd = config['opinions']['trav_command']
+    
+    file_list = []
+    for directory in config['directories']:
+        p = subprocess.Popen(
+            cmd.replace('{d}', directory),
+            shell = True,
+            stdout = subprocess.PIPE)
+        p.wait()
+        outstr = p.stdout.read().decode().strip()
+        if len(outstr) == 0:
+            continue
+        files = outstr.split('\n')
+        file_list.extend(files)
+        
+    config['files'] = file_list
+    
+    index = None
+    if conf_obj.has_option('status', 'file'):
+        try:
+            index = file_list.index(conf_obj.get('status', 'file'))
+        except ValueError:
+            index = None
+    if index is None:
+        if conf_obj.has_option('status', 'index'):
+            ci = int(conf_obj.get('status', 'index'))
+            if ci >= 0 and ci < len(file_list):
+                index = ci
+    if index is None:
+        index = 0
+    
+    config['index'] = index
+    
+    return 0
+
+def print_item(index):
+    assert(index >= 0 and index < len(config['files']))
+    print('%s\t%d\t%s' % (
+        '*' if config['index'] == index else '',
+        index,
+        config['files'][index])
+        )
+
+def cmd_list(arg = None):
+    for i in range(0,len(config['files'])):
+        print_item(i)
+
+def cmd_get(arg = None):
+    print_item(config['index'])
+
+def cmd_exec(arg = None):
+    for script in config['scripts']:
+        cmd = script
+        cmd = cmd.replace('{i}', str(config['index']))
+        cmd = cmd.replace('{n}', str(len(config['files'])))
+        cmd = cmd.replace('{f}', config['files'][config['index']])
+        os.system(cmd)
+
+def cmd_set(arg = 0):
+    arg = int(arg)
+    if (arg == config['index']):
+        return
+    
+    config['index'] = arg
+    conf_obj = config['conf_obj']
+    conf_obj.set('status', 'index', str(arg))
+    conf_obj.set('status', 'file', config['files'][arg])
+    conf_obj.write(open(config['conf_file'], 'w'))
+    
+    if not no_execute:
+        cmd_exec()
+
+def cmd_next(arg = None):
+    cmd_set((config['index'] + 1) % len(config['files']))
+
+def cmd_prev(arg = None):
+    cmd_set((config['index'] - 1) % len(config['files']))
+
+def main(args):
+    ret = read_config(args.config)
+    if ret:
+        return ret
+        
+    no_execute = args.no_execute
+    return eval('cmd_' + args.command)(args.argument)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description = DESCRIPTION)
+    parser.add_argument('command', choices = Commands)
+    parser.add_argument('argument', nargs='?')
+    parser.add_argument('--config', '-c',
+        help = 'Specify the config file. The default is ' + \
+        default_conf_obj, default = default_conf_obj)
+    parser.add_argument('--no-execute', '-n',
+        help = 'Don\'t execute script when switching files',
+        action = 'store_const',
+        const = True,
+        default = False)
+    
+    args = parser.parse_args()
+    exit(main(args))
+
