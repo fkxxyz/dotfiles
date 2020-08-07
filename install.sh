@@ -15,12 +15,15 @@ export release_codename="$(cat /usr/lib/os-release | grep '^VERSION_CODENAME=' |
 
 # 读取所有的包名
 case "$release_id" in
-arch)
+arch|archarm)
   package_list="$(pacman -Qq)"
   ;;
 debian|ubuntu)
   package_list="$(dpkg-query -f '${Package}\n' -W)"
   ;;
+*)
+  echo "Unknow release_id: $release_id"
+  exit 1
 esac
 
 dot_package(){
