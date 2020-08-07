@@ -17,7 +17,7 @@ if grep -q '\[archlinuxcn\]' /etc/pacman.conf; then
 else
 	echo "
 [archlinuxcn]
-Server = $mirror/archlinuxcn/\$arch
+Server = $DOT_mirror_archlinuxcn/\$arch
 " >> /etc/pacman.conf
 	pacman -Sy --noconfirm archlinuxcn-keyring
 fi

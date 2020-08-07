@@ -27,31 +27,32 @@ dot_package(){
   local path pkg
   
   path="$(readlink -f "$1")"
-  pkg="$(basename "$(readlink -f "$1")")"
   
-  echo "enter $path"
-  if echo "$package_list" | grep -q "^$pkg\$"; then
-    package_list="$(echo "$package_list" | grep -v "^$pkg\$")"
-    if [ "$USER" == "root" ]; then
-      if [ -x "$path/system.sh" ]; then
-        echo "install $path/system.sh"
-        "$path/system.sh"
+  if [ "$2" ]; then
+    echo "enter package $2"
+    if echo "$package_list" | grep -q "^$2\$"; then
+      package_list="$(echo "$package_list" | grep -v "^$2\$")"
+      if [ "$USER" == "root" ]; then
+        if [ -x "$path/system.sh" ]; then
+          echo "install $path/system.sh"
+          "$path/system.sh"
+        fi
       fi
-    fi
-    if [ -x "$path/user.sh" ]; then
-      echo "install $path/user.sh"
-      "$path/user.sh"
+      if [ -x "$path/user.sh" ]; then
+        echo "install $path/user.sh"
+        "$path/user.sh"
+      fi
     fi
   fi
   
-  find "$path" -mindepth 1 -maxdepth 1 -type d | while read pkg; do
-    dot_package "$pkg"
+  find "$path" -mindepth 1 -maxdepth 1 -type d,l | while read pkg; do
+    dot_package "$pkg" "$(basename "$pkg")"
   done
 }
 
 # 只安装特定的配置
 if [ "$2" ]; then
-  dot_package "$SHELLDIR/packages/$2"
+  dot_package "$SHELLDIR/packages/$2" "$2"
 else
   dot_package "$SHELLDIR/packages"
 fi
