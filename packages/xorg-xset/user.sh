@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+
+mkdir -p ~/.config/autostart
 
 # 用 LXInput 中已有的设置配置键盘和鼠标
 cat > ~/.config/autostart/LXinput-setup.desktop << EOF
