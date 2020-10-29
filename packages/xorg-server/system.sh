@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+type /usr/lib/Xorg > /dev/null 2>&1 || exit 0
+echo "$*"
+
 # 设置为 Intel 图形驱动
 if lspci | grep VGA | grep Intel > /dev/null; then
 	pacman -S --needed xf86-video-intel

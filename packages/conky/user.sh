@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+type conky > /dev/null 2>&1 || exit 0
+echo "$*"
+
+exit 0
+
 # 写入配置
 mkdir -p ~/.config/conky
 echo '

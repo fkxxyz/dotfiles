@@ -1,7 +1,10 @@
 #!/bin/bash
 set -e
 
+echo "$*"
+
 # 设置时区
-ln -sf /usr/share/zoneinfo/$DOT_zoneinfo /etc/localtime
+[ -f /etc/localtime ] || \
+    ln -sf /usr/share/zoneinfo/$DOT_zoneinfo /etc/localtime
 
 

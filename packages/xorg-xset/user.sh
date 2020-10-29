@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+type xset > /dev/null 2>&1 || exit 0
+echo "$*"
+
 mkdir -p ~/.config/autostart
 
 # 用 LXInput 中已有的设置配置键盘和鼠标

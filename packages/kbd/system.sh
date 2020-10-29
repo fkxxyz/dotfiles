@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-# 设置为英文键盘布局
-loadkeys "$DOT_keymap"
+type localedef > /dev/null 2>&1 || exit 0
+echo "$*"
 
 # 设置默认为英文键盘布局
 cat > /etc/vconsole.conf << EOF

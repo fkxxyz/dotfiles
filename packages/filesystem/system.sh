@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-cat > /etc/profile.d/userbin.sh << EOF
-export PATH=\$HOME/.local/bin:\$PATH
-EOF
+[ -d "/etc/profile.d" ] || exit 0
+echo "$*"
+
+[ -f /etc/profile.d/userbin.sh ] || \
+    printf '
+export PATH=$HOME/.local/bin:$PATH
+' | install -Dm644 /dev/stdin /etc/profile.d/userbin.sh
 

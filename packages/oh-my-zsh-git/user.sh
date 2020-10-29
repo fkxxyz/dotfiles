@@ -1,12 +1,16 @@
 #!/bin/bash
 set -e
 
-# 复制 oh-my-zsh 的配置
-cp /usr/share/oh-my-zsh/zshrc ~/.zshrc
+[ -f "/usr/share/oh-my-zsh/zshrc" ] || exit 0
+echo "$*"
 
-# 设置主题
-sed -Ei 's/^[[:space:]]*#?[[:space:]]*(ZSH_THEME=).*$/\1"ys"/g' ~/.zshrc
+if [ -f ~/.zshrc ]; then
+  # 复制 oh-my-zsh 的配置
+  cp /usr/share/oh-my-zsh/zshrc ~/.zshrc
 
-# 修改 shell
-#chsh -s /bin/zsh
+  # 设置主题
+  sed -Ei 's/^[[:space:]]*#?[[:space:]]*(ZSH_THEME=).*$/\1"ys"/g' ~/.zshrc
 
+  # 修改 shell
+  #chsh -s /bin/zsh
+fi

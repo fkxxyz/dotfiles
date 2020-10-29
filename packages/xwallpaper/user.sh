@@ -1,4 +1,8 @@
 #!/bin/bash
+set -e
+
+type xwallpaper > /dev/null 2>&1 || exit 0
+echo "$*"
 
 SCRIPT_FOLDER="$(dirname "$(readlink -f "$0")")"
 
