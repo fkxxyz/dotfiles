@@ -4,6 +4,8 @@ set -e
 type pacman > /dev/null 2>&1 || exit 0
 echo "$*"
 
+# TODO
+
 # 开启颜色支持
 sed -Ei 's/^[#[:space:]]*(Color[[:space:]]*)$/\1/g' /etc/pacman.conf
 

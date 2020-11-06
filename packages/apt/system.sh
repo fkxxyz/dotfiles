@@ -4,6 +4,8 @@ set -e
 type apt > /dev/null 2>&1 || exit 0
 echo "$*"
 
+# TODO
+
 # 设置默认不安装 Recommends 和 Suggests 的软件包
 mkdir -p "/etc/apt/apt.conf.d"
 cat > "/etc/apt/apt.conf.d/no-recommends-suggests" << EOF

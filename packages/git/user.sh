@@ -15,3 +15,4 @@ if [ -f ~/.gitconfig ]; then
   # 免密码
   git config --global credential.helper store
 fi
+

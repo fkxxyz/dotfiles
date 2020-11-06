@@ -7,6 +7,7 @@ echo "$*"
 exit 0
 
 # 写入配置
+# TODO
 mkdir -p ~/.config/conky
 echo '
 background yes

@@ -30,7 +30,9 @@ fi
 
 # 解除 rf 锁
 if [ "$DOT_rfkill_unblock_all" ]; then
-  rfkill unblock all
+  if [ "$DOT_initialization" ]; then
+    rfkill unblock all
+  fi
 fi
 
 

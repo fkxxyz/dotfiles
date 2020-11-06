@@ -13,5 +13,8 @@ if [ ! -f /etc/skel/.zshrc ]; then
 
   # 修改默认 shell
   sed -Ei 's/^[[:space:]]*#?[[:space:]]*(SHELL=).*$/\1\/bin\/zsh/g' /etc/default/useradd
+
+  # 修改 shell
+  chsh -s /bin/zsh
 fi
 

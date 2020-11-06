@@ -13,3 +13,4 @@ sed -Ei '/^[[:space:]]*\[driver-nvidia\]/,/^[[:space:]]*\[.*\]/s/^([[:space:]]*P
 # 设置为自动启动
 [ -f /etc/systemd/system/graphical.target.wants/bumblebeed.service ] || \
     systemctl enable bumblebeed
+

@@ -14,3 +14,4 @@ if [ -f ~/.zshrc ]; then
   # 修改 shell
   #chsh -s /bin/zsh
 fi
+

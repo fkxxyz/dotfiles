@@ -21,6 +21,9 @@ export DOT_mirror_debian=https://mirror.bjtu.edu.cn/debian
 export DOT_debian_release_codename=sid
 
 
+# 是否为第一次初始化
+export DOT_initialization=
+
 # 系统时间是否为 UTC
 export DOT_hw_is_utc=yes
 
@@ -29,8 +32,6 @@ export DOT_zoneinfo=Asia/Shanghai
 
 # 键盘布局
 export DOT_keymap=us
-
-
 
 # 是否启用 ntp
 export DOT_enable_ntp=yes
