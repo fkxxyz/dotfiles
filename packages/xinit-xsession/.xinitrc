@@ -1,6 +1,8 @@
 
 [ -f ~/.xprofile ] && . ~/.xprofile
 
+source /etc/profile
+
 # deamon process
 daemon_dir=/tmp/xinitrc_deamon_$USER
 mkdir -p $daemon_dir

@@ -2,20 +2,20 @@
 
 
 # archlinux 源
-export DOT_mirror_archlinux=https://mirror.bjtu.edu.cn/disk3/archlinux/$repo/os/$arch
+export DOT_mirror_archlinux='https://mirrors.cloud.tencent.com/archlinux/$repo/os/$arch'
 
 # archlinuxcn 源
-export DOT_mirror_archlinuxcn=https://mirror.bjtu.edu.cn/archlinuxcn/$arch
+export DOT_mirror_archlinuxcn='https://mirrors.cloud.tencent.com/archlinuxcn/$arch'
 
 # 是否开启 nickcao 仓库
 export DOT_enable_nickcao=
 
 
 # ubuntu 源
-export DOT_mirror_ubuntu=https://mirror.bjtu.edu.cn/ubuntu
+export DOT_mirror_ubuntu=https://mirrors.cloud.tencent.com/ubuntu
 
 # debian 源
-export DOT_mirror_debian=https://mirror.bjtu.edu.cn/debian
+export DOT_mirror_debian=https://mirrors.cloud.tencent.com/debian
 
 # debian 版本代号
 export DOT_debian_release_codename=sid
@@ -35,7 +35,6 @@ export DOT_keymap=us
 
 # 是否启用 ntp
 export DOT_enable_ntp=yes
-
 
 
 # 是否允许root用户登录（否）

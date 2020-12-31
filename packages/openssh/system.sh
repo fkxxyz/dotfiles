@@ -11,6 +11,7 @@ items=(
   PubkeyAuthentication
 )
 cfg="$(cat /etc/sudoers)"
+sed_scripts=()
 
 for item in ${items[@]}; do
   if [ "$(eval echo \$DOT_$item)" ]; then
@@ -19,7 +20,8 @@ for item in ${items[@]}; do
     value=no
   fi
   echo "$cfg" | grep -q "^$item $value" || \
-      sed -Ei 's/^[[:space:]]*#?[[:space:]]*('"$item"')([[:space:]].*)?$/\1 '"$value"'/g' /etc/ssh/sshd_config
+    sed_scripts+=(-e 's/^[[:space:]]*#?[[:space:]]*('"$item"')([[:space:]].*)?$/\1 '"$value"'/g')
 done
 
+sed -Ei -e '' "${sed_scripts[@]}" /etc/ssh/sshd_config
 

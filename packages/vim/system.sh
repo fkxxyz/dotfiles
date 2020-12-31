@@ -4,12 +4,7 @@ set -e
 type vim > /dev/null 2>&1 || exit 0
 echo "$*"
 
-# 默认禁用 mouse 模式
 [ -f "/etc/skel/.vimrc" ] || \
-cat > /etc/skel/.vimrc << EOF
-if has( 'mouse' )
-    set mouse-=a
-endif
+  install -Dm644 "$(dirname "$(readlink -f "$0")")/vimrc" "/etc/skel/.vimrc"
 
-EOF
 
