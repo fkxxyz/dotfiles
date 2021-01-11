@@ -1,7 +1,11 @@
 syntax on
+set nocompatible
+set backspace=indent,eol,start
 set autoindent
 set tabstop=4
 set softtabstop=2
 set shiftwidth=2
 set smartindent
+set laststatus=2
+set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
 
